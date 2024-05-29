@@ -6,7 +6,7 @@ import { onAuthStateChanged, signOut } from 'firebase/auth'
 import { firebaseAuth } from '../utils/firebase-config'
 import { Link, useNavigate } from 'react-router-dom'
 
-export default function Navbar(isScrolled) {
+export default function Navbar({isScrolled}) {
     const links= [
         {name: "Home", link: "/"},
         {name: "TV Shows", link: "/tv"},
