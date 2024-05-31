@@ -31,6 +31,11 @@ const Container= styled.div`
         cursor: pointer;
       }
     }
+    /* video{
+      height: 50%;
+      width: 50%;
+      object-fit: cover;
+    } */
     video{
       height: 100%;
       width: 100%;
