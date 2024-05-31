@@ -9,53 +9,54 @@ import { BsCheck } from 'react-icons/bs';
 import { AiOutlinePlus } from 'react-icons/ai';
 import { BiChevronDown } from 'react-icons/bi';
 
-export default function Card({movieData, isLiked=false}) {
-    const [isHovered,setIsHovered]=useState(false);
-    const navigate= useNavigate();
-  return (
-    <Container onMouseEnter={()=>setIsHovered(true)} onMouseLeave={()=>setIsHovered(false)}>
-        <img src={`${IMAGE_URL}${movieData.image}`} alt="movie" onClick={()=> navigate("/player")}/>
-        {
-            isHovered && (
-                <div className="hover">
-                    <div className="image-video-container">
-                    <img src={`${IMAGE_URL}${movieData.image}`} alt="card" onClick={() => navigate("/player")} />
-                    <video src={video} autoPlay={true} loop muted onClick={() => navigate("/player")} />
-                </div>
-                    <div className="info-container flex column">
-                        <h3 className="name" onClick={()=>navigate("/player")}>{movieData.name}</h3>
-                    </div>
-                    <div className="icons flex j-between">
-                        <div className="controls flex">
-                            <IoPlayCircleSharp title="play" onClick={()=>navigate("/player")}/>
-                            <RiThumbUpFill title="Like" />
-                            <RiThumbDownFill title="DisLike" />
-                            {
-                                isLiked? 
-                                    <BsCheck title='Remove From List' /> :
-                                    <AiOutlinePlus title='Add to my list'/>
-                            }
+export default React.memo (
+    function Card({movieData, isLiked=false}) {
+        const [isHovered,setIsHovered]=useState(false);
+        const navigate= useNavigate();
+        return (
+            <Container onMouseEnter={()=>setIsHovered(true)} onMouseLeave={()=>setIsHovered(false)}>
+                <img src={`${IMAGE_URL}${movieData.image}`} alt="movie" onClick={()=> navigate("/player")}/>
+                {
+                    isHovered && (
+                        <div className="hover">
+                            <div className="image-video-container">
+                            <img src={`${IMAGE_URL}${movieData.image}`} alt="card" onClick={() => navigate("/player")} />
+                            <video src={video} autoPlay={true} loop muted onClick={() => navigate("/player")} />
                         </div>
-                        <div className="info">
-                            <BiChevronDown title='More Info'/>
+                            <div className="info-container flex column">
+                                <h3 className="name" onClick={()=>navigate("/player")}>{movieData.name}</h3>
+                            </div>
+                            <div className="icons flex j-between">
+                                <div className="controls flex">
+                                    <IoPlayCircleSharp title="play" onClick={()=>navigate("/player")}/>
+                                    <RiThumbUpFill title="Like" />
+                                    <RiThumbDownFill title="DisLike" />
+                                    {
+                                        isLiked? 
+                                            <BsCheck title='Remove From List' /> :
+                                            <AiOutlinePlus title='Add to my list'/>
+                                    }
+                                </div>
+                                <div className="info">
+                                    <BiChevronDown title='More Info'/>
+                                </div>
+                            </div>
+                            <div className="genres flex">
+                                <ul className="flex">
+                                {
+                                    movieData.genres.map((genre)=>{
+                                        <li key={genre}>{genre}</li>
+                                    })
+                                }
+                                </ul>
+                            </div>
                         </div>
-                    </div>
-                    <div className="genres flex">
-                        <ul className="flex">
-                        {
-                            movieData.genres.map((genre)=>{
-                                <li key={genre}>{genre}</li>
-                            })
-                        }
-                        </ul>
-                    </div>
-                </div>
-            )
-        }
-    </Container>
-  )
-}
-
+                    )
+                }
+            </Container>
+        )
+    }
+)
 const Container= styled.div`
     max-width: 230px;
     width: 230px;
