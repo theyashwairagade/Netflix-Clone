@@ -5,6 +5,8 @@ import Netflix from "./pages/Netflix"
 import {BrowserRouter, Route, Routes} from 'react-router-dom'
 import Player from './pages/Player'
 import Movies from './pages/Movies'
+import TVShows from './pages/TVShows'
+
 export default function App() {
   return (
     <BrowserRouter>
@@ -13,6 +15,7 @@ export default function App() {
     <Route exact path='/signup' element={<Signup/>}/>
     <Route exact path='/player' element={<Player/>}/>
     <Route exact path='/movies' element={<Movies/>}/>
+    <Route exact path='/tv' element={<TVShows/>}/>
     <Route exact path='/' element={<Netflix/>}/>
     </Routes>
     </BrowserRouter>
