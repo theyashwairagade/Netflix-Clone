@@ -1,7 +1,6 @@
 import { configureStore, createAsyncThunk, createSlice} from "@reduxjs/toolkit";
 import { API_BASE_URL, API_KEY } from '../utils/secrets'
 import axios from "axios";
-// import { type } from "@testing-library/user-event/dist/type";
 
 const initialState= {
     movies: [],
@@ -44,7 +43,15 @@ export const fetchMovies= createAsyncThunk("netflix/trending",async({type},thunk
     const {netflix:{genres}}=thunkAPI.getState();
     return getRawData(`${API_BASE_URL}/trending/${type}/week?api_key=${API_KEY}`, genres, true);
 });
-// return getRawData(`${API_BASE_URL}/discover/${type}?api_key=${API_KEY}&with_genres=${}`);
+
+export const fetchDataByGenre= createAsyncThunk("netflix/moviesByGenres",async({genre, type},thunkAPI)=>{
+    const {netflix:{genres}}=thunkAPI.getState();
+    return getRawData(
+        `${API_BASE_URL}/discover/${type}?api_key=${API_KEY}&with_genres=${genre}`,
+        genres
+    );
+});
+// return getRawData(`${API_BASE_URL}/discover/${type}?api_key=${API_KEY}&with_genres=${genre}`,genres,true);
 
 export const getGenres= createAsyncThunk("netflix/genres", async()=>{
     const {data: {genres}}= await axios.get(`${API_BASE_URL}/genre/movie/list?api_key=${API_KEY}`);
@@ -60,6 +67,9 @@ const NetflixSlice= createSlice({
             state.genresLoaded=true;
         })
         builder.addCase(fetchMovies.fulfilled,(state,action)=>{
+            state.movies= action.payload;
+        })
+        builder.addCase(fetchDataByGenre.fulfilled,(state,action)=>{
             state.movies= action.payload;
         })
     }
