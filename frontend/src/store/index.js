@@ -1,5 +1,5 @@
 import { configureStore, createAsyncThunk, createSlice} from "@reduxjs/toolkit";
-import { API_BASE_URL, API_KEY } from '../utils/secrets'
+import { API_BASE_URL, API_KEY, BACKEND_URL } from '../utils/secrets'
 import axios from "axios";
 
 const initialState= {
@@ -56,6 +56,11 @@ export const fetchDataByGenre= createAsyncThunk("netflix/moviesByGenres",async({
 export const getGenres= createAsyncThunk("netflix/genres", async()=>{
     const {data: {genres}}= await axios.get(`${API_BASE_URL}/genre/movie/list?api_key=${API_KEY}`);
     return genres;
+})
+
+export const getUserPlaylist=createAsyncThunk("netflix/getPlaylist",async(email)=>{
+    const {data: {movies}}= await axios.get(`${BACKEND_URL}/api/user/liked/${email}`);
+    return movies;
 })
 
 const NetflixSlice= createSlice({

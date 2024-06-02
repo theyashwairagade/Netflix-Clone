@@ -22,3 +22,16 @@ module.exports.addToPlaylist= async(req, res)=>{
         return res.json({msg: "Error adding movie"});
     }
 };
+
+module.exports.getPlaylist=async(req, res)=>{
+    try {
+        const {email}=req.params;
+        const user = await User.findOne({email});
+        if(user)
+            return res.json({msg: "success", movies: user.likedMovies});
+        else
+            return res.json({msg: "Invalid email"});
+    } catch (error) {
+        return res.json({msg: "Error fetching movie"});
+    }
+}
