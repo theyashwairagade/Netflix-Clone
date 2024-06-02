@@ -63,6 +63,13 @@ export const getUserPlaylist=createAsyncThunk("netflix/getPlaylist",async(email)
     return movies;
 })
 
+export const removeFromPlaylist=createAsyncThunk("netflix/deleteFromPlaylist",async({movieID,email})=>{
+    const {data: {movies}}= await axios.put(`${BACKEND_URL}/api/user/delete`,{
+        email,movieID
+    });
+    return movies;
+})
+
 const NetflixSlice= createSlice({
     name: "Netflix",
     initialState,
@@ -78,6 +85,9 @@ const NetflixSlice= createSlice({
             state.movies= action.payload;
         })
         builder.addCase(getUserPlaylist.fulfilled,(state,action)=>{
+            state.movies= action.payload;
+        })
+        builder.addCase(removeFromPlaylist.fulfilled,(state,action)=>{
             state.movies= action.payload;
         })
     }
