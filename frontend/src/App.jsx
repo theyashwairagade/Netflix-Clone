@@ -6,6 +6,7 @@ import {BrowserRouter, Route, Routes} from 'react-router-dom'
 import Player from './pages/Player'
 import Movies from './pages/Movies'
 import TVShows from './pages/TVShows'
+import UserPlaylist from './pages/UserPlaylist'
 
 export default function App() {
   return (
@@ -16,6 +17,7 @@ export default function App() {
     <Route exact path='/player' element={<Player/>}/>
     <Route exact path='/movies' element={<Movies/>}/>
     <Route exact path='/tv' element={<TVShows/>}/>
+    <Route exact path='/mylist' element={<UserPlaylist/>}/>
     <Route exact path='/' element={<Netflix/>}/>
     </Routes>
     </BrowserRouter>

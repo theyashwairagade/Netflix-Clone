@@ -77,6 +77,9 @@ const NetflixSlice= createSlice({
         builder.addCase(fetchDataByGenre.fulfilled,(state,action)=>{
             state.movies= action.payload;
         })
+        builder.addCase(getUserPlaylist.fulfilled,(state,action)=>{
+            state.movies= action.payload;
+        })
     }
 })
 
